@@ -1,0 +1,11 @@
+com\struts2\entity\Seguro.class
+com\struts2\persistence\DAO.class
+com\struts2\persistence\SeguroDAO.class
+com\struts2\services\Action.class
+com\struts2\persistence\LoginDAO.class
+com\struts2\persistence\SeguradoDAO.class
+com\struts2\services\SeguradoService.class
+com\struts2\services\SeguroService.class
+com\struts2\entity\Segurado.class
+com\struts2\entity\Login.class
+com\struts2\services\LoginService.class

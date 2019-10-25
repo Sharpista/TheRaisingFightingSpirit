@@ -49,17 +49,18 @@
   </nav>
 	<div class="container center-align">
 		<div class="row center text-center mt-5">
-			<br> <a
-				class="waves-effect waves-light btn-large  purple darken-4 text-white center-align" href = "add_segurado.jsp"
+			<br> <s:a
+				class="waves-effect waves-light btn-large  purple darken-4 text-white center-align" href = "add_segurado"
 				style="width: 350px; height: 50px" method = "execute"><i
-				class="material-icons right text-white">people</i>CADASTRAR SEGURADO</a>
+				class="material-icons right text-white">people</i>CADASTRAR SEGURADO</s:a>
 		</div>
 		<div class="row center text-center mt-4">
-			<a
+			<s:a 
+				href="listarSegurados"
 				class="waves-effect waves-light btn-large  purple darken-4 text-white center-align"
 				style="width: 350px; height: 50px"><i
 				class="material-icons right text-white">view_list</i>LISTAR
-				SEGURADOS</a>
+				SEGURADOS</s:a>
 		</div>
 		<div class="row center text-center mt-4">
 			<a
@@ -71,7 +72,7 @@
 
 		<div class="row center text-center mt-4">
 			<s:a
-				href="listar"
+				
 				class="waves-effect waves-light btn-large  purple darken-4 text-white center-align"
 				style="width: 350px; height: 50px"><i
 				class="material-icons right text-white">view_list</i>LISTAR

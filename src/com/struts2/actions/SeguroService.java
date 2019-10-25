@@ -1,4 +1,4 @@
-package com.struts2.services;
+package com.struts2.actions;
 
 import java.util.List;
 

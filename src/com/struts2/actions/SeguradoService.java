@@ -1,5 +1,6 @@
-package com.struts2.services;
+package com.struts2.actions;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,28 +15,37 @@ public class SeguradoService extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
 	
-	Segurado segurado = new Segurado();
-	
+	Segurado segurado = null;
 	private String nome;
 	private String cpf;
 	private String sexo;
 	private String rg;
 	private String[] diasDeVisita;
-	private Date dataDeNascimento;
-	private Date dataDeCadastro;
+	private String dataDeNascimento;
+	private String dataDeCadastro;
 	private String correntista;
-	
+	private List<String>listaDeDias;
+	private List<String>listaDeGeneros;
 	private List<Seguro>listaDeSeguros;
 	private List<Segurado>listaDeSegurados;
+	private List<String> listOpc;
 	
 	
-	public String execute() throws Exception {
-		this.segurado = new Segurado();
+	public String cadastrar() throws Exception {
+		Segurado segurado = new Segurado();
 		SeguradoDAO sdao = new SeguradoDAO();
 		
-		
 		try {
+			segurado.setNome(nome);
+			segurado.setSexo(sexo);
+			segurado.setCorrentista(correntista);
+//			segurado.setDataDeCadastro(dataDeCadastro);
+			segurado.setCpf(cpf);
+			segurado.setDataDeNascimento(dataDeNascimento);
+			segurado.setRg(rg);
+			segurado.setDiasDeVisita(diasDeVisita);
 			sdao.criarSegurado(segurado);
+			
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -43,7 +53,48 @@ public class SeguradoService extends ActionSupport {
 		
 	}
 	
-	public String listar() {
+	public String abrirCadastro() throws Exception {
+		this.segurado = new Segurado();
+		SeguradoDAO sdao = new SeguradoDAO();
+		listOpc = new ArrayList<String>();
+		listaDeGeneros = new ArrayList<String>();
+		listaDeDias = new ArrayList<String>();
+		listaDeSeguros = new ArrayList<Seguro>();
+		try {
+			listaDeDias();
+			listaDeGenero();
+			listaDeOpcoes();
+			mostrarSeguros();
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+		
+	}
+	
+	public void listaDeOpcoes() {
+		
+		listOpc.add("SIM");
+		listOpc.add("NÃO");
+	}
+	
+	public void listaDeGenero() {
+		
+		listaDeGeneros.add("Masculino");
+		listaDeGeneros.add("Feminino");
+	}
+	
+	public void listaDeDias() {
+		
+		listaDeDias.add("SEGUNDA-FEIRA");
+		listaDeDias.add("TERÇA-FEIRA");
+		listaDeDias.add("QUARTA-FEIRA");
+		listaDeDias.add("QUINTA-FEIRA");
+		listaDeDias.add("SEXTA-FEIRA");
+	}
+	
+	
+	public String listarSegurados() {
 		SeguradoDAO dao = new SeguradoDAO();
 		listaDeSegurados = dao.listarSegurado();
 		return SUCCESS;
@@ -70,7 +121,7 @@ public class SeguradoService extends ActionSupport {
 		try {
 			SeguradoDAO sdao = new SeguradoDAO();
 			
-			sdao.deleteSegurado(segurado);
+			sdao.updateSegurado(segurado);
 			
 			return SUCCESS;
 		} catch (Exception e) {
@@ -78,6 +129,44 @@ public class SeguradoService extends ActionSupport {
 			return ERROR;
 		}
 	}
+	
+	
+	
+	public List<String> getListaDeDias() {
+		return listaDeDias;
+	}
+
+	public void setListaDeDias(List<String> listaDeDias) {
+		this.listaDeDias = listaDeDias;
+	}
+
+	public List<String> getListaDeGeneros() {
+		return listaDeGeneros;
+	}
+
+	public void setListaDeGeneros(List<String> listaDeGeneros) {
+		this.listaDeGeneros = listaDeGeneros;
+	}
+
+	public List<Seguro> getListaDeSeguros() {
+		return listaDeSeguros;
+	}
+
+	public void setListaDeSeguros(List<Seguro> listaDeSeguros) {
+		this.listaDeSeguros = listaDeSeguros;
+	}
+
+	public List<Segurado> getListaDeSegurados() {
+		return listaDeSegurados;
+	}
+
+	public void setListaDeSegurados(List<Segurado> listaDeSegurados) {
+		this.listaDeSegurados = listaDeSegurados;
+	}
+
+	
+	
+
 	public Segurado getSegurado() {
 		return segurado;
 	}
@@ -126,11 +215,11 @@ public class SeguradoService extends ActionSupport {
 		this.diasDeVisita = diasDeVisita;
 	}
 
-	public Date getDataDeNascimento() {
+	public String getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(Date dataDeNascimento) {
+	public void setDataDeNascimento(String dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
@@ -149,6 +238,23 @@ public class SeguradoService extends ActionSupport {
 	public void setListaDeSegurado(List<Segurado> listaDeSegurado) {
 		this.listaDeSegurados = listaDeSegurado;
 	}
+
+	public List<String> getListOpc() {
+		return listOpc;
+	}
+
+	public void setListOpc(List<String> listOpc) {
+		this.listOpc = listOpc;
+	}
+
+	public String getDataDeCadastro() {
+		return dataDeCadastro;
+	}
+
+	public void setDataDeCadastro(String dataDeCadastro) {
+		this.dataDeCadastro = dataDeCadastro;
+	}
+	 
 	
 	
 	

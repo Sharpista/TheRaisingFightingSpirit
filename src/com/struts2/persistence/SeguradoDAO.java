@@ -17,13 +17,13 @@ public class SeguradoDAO extends DAO {
 	
 	public Statement stmt;
 
-	DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public void criarSegurado(Segurado segurado) throws Exception {
 		try {
 			abrir();
-			stmt = online.prepareStatement(
-					"INSERT INTO Segurado values(null,?,?,?,?,?,?,?,?)");
+			String sql = "INSERT INTO segurado values(null,?,?,?,?,?,?,?,?)";
+			ps = online.prepareStatement(sql);
 			ps.setString(1, segurado.getNome());
 			ps.setString(2, segurado.getCpf());
 			ps.setString(3, segurado.getRg());
@@ -35,9 +35,10 @@ public class SeguradoDAO extends DAO {
 			}
 			ps.setNString(5, sb.toString());
 			
-			ps.setDate(6, (java.sql.Date) segurado.getDataDeNascimento());
+			ps.setString(6, segurado.getDataDeNascimento());
 			ps.setString(7, segurado.getCorrentista());
-			ps.setString(8, format.format(new Timestamp(new Date(0).getTime())));
+			ps.setString(8, format.format(new java.sql.Time(new Date(0).getTime())));
+			ps.execute();
 			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,7 +109,7 @@ public class SeguradoDAO extends DAO {
 				sb.append(" ");
 			}
 			ps.setNString(5, sb.toString());
-			ps.setDate(6, (java.sql.Date) segurado.getDataDeNascimento());
+			ps.setString(6, segurado.getDataDeNascimento());
 			ps.setString(7, segurado.getCorrentista());
 			ps.execute();
 
@@ -144,7 +145,8 @@ public class SeguradoDAO extends DAO {
 				segurado.setRg(rs.getString("rg"));
 				segurado.setSexo(rs.getString("sexo"));
 				segurado.setCorrentista(rs.getString("correntista"));
-				segurado.setDataDeNascimento(rs.getDate("dataDeAniversario"));
+				segurado.setDataDeNascimento(rs.getString("dataDeNascimento"));
+				segurado.setDiasDeVisita(rs.getNString("diasDeVisita").split(" "));
 				listaDeSegurados.add(segurado);
 			}
 		} catch (Exception e) {

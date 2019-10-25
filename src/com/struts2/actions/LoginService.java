@@ -1,4 +1,4 @@
-package com.struts2.services;
+package com.struts2.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.struts2.entity.Login;

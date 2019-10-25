@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="s" uri="/struts-tags"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 <link
 	href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
 	rel="stylesheet">
@@ -24,35 +28,58 @@
 <title>Lista de Seguros</title>
 </head>
 <body>
-	<nav>
-		<div class="nav-wrapper purple darken-4">
-			<a href="#" class="brand-logo center text-white center">Bem Vindo</a>
-			<ul class="right hide-on-med-and-down">
-				<li><a
-					class="waves-effect waves-light btn text-white deep-purple accent-1">Logout</a></li>
-			</ul>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<div class="container-fluid">
+		<h1 align="center" class="mt-2 text-white purple darken-4">Lista de Seguros
+			</h1>
 
+		<div class="row">
+			<div class="col-sm-12">
+				<table class="table table-bordered text-white">
+					<thead class="purple darken-4">
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">NOME</th>
+							<th scope="col">CPF</th>
+							<th scope="col">RG</th>
+							<th scope="col">DATA DE NASCIMENTO</th>
+							<th scope="col">DATA DE CADASTRO</th>
+							<th scope="col">DIAS DE VISITA</th>
+							<th scope="col">SEXO</th>
+							<th scope="col">CORRENTISTA</th>
+						</tr>
+					</thead>
+					<tbody>
+						<s:iterator value="listaDeSegurados">
+							<tr>
+								<td class ="text-dark"><s:property value="id"  /></td>
+								<td class ="text-dark"><s:property value="nome" /></td>
+								<td class ="text-dark"><s:property value="cpf" /></td>
+								<td class ="text-dark"><s:property value="rg" /></td>
+								<td class ="text-dark"><s:property value="dataDeNascimento" /></td>
+								<td class ="text-dark"><s:property value="diasDeVisita" /></td>
+								<td class ="text-dark"><s:property value="sexo" /></td>
+								<td class ="text-dark"><s:property value="correntista" /></td>
+								<s:url action="deleta-seguro" var="del">
+									<s:param name="id" value="id"></s:param>
+								</s:url>
+
+								
+
+								<td>
+									<a href="<s:property value="alt"/>" class="btn-floating btn-small waves-effect waves-light purple darken-4 "><i class="material-icons">edit</i></a>
+									<a href="<s:property value="del"/>"class="btn-floating btn-small waves-effect waves-light purple "><i class="material-icons">delete</i></a>
+								</td>
+							</tr>
+						</s:iterator>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</nav>
-	<table class="responsive-table text-color">
-		<thead>
-			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">NOME</th>
-				<th scope="col">PREÇO DO SEGURO</th>
-				
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th scope="row">${client.id}</th>
-				<td>${client.nome}</td>
-				<td>${client.cpf}</td>
-				<td>${client.rg}</td>
-				<td><a class="btn pulse  deep-purple accent-1 text-white" href="${pageContext.request.contextPath}/seguros/clientServlet?acao=update&id=${client.id}">Editar</a>
-  	   <a class="btn pulse purple darken-4 text-white " href="${pageContext.request.contextPath}/seguros/clientServlet?acao=excluir&id=${client.id}">Excluir</a></td>
-			</tr>
-		</tbody>
-	</table>
+	</div>
+
+
+
 </body>
 </html>

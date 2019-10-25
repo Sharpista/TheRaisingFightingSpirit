@@ -11,29 +11,38 @@
 
 	<package name="default" extends="struts-default" namespace="/">
 
-		<action name="login" class="com.struts2.services.LoginService">
+		<action name="login" class="com.struts2.actions.LoginService">
 			<result name="success">/Welcome.jsp</result>
 			<result name="error">Login.jsp</result>
 		</action>
 		
-		<action name="add_seguro" class = "com.struts2.services.SeguroService">
+		<action name="add_seguro" class = "com.struts2.actions.SeguroService">
 			<result name = "success" type="chain">listar</result>
 			<result name = "error">/Welcome.jsp</result>
 		</action>
 		
-		<action name="listar" class="com.struts2.services.SeguroService" method="listar">
+		<action name="listarSeguros" class="com.struts2.actions.SeguroService" method="listar">
 			<result name="success">/ListaDeSeguros.jsp</result>
 		</action>
 		
 		
-		<action name="add_segurado" class="com.struts2.services.SeguradoService">
-			<result name= "success" type="chain">listar</result>
+		<action name="add_segurado" class="com.struts2.actions.SeguradoService" method="abrirCadastro">
+			<result name= "success">/add_segurado.jsp</result>
 			<result name = "error">/Welcome.jsp</result>
 		</action>
 		
-		<action name="listar" class ="com.struts2.services.SeguradoService" method="listar">
+		<action name="cadastrar" class="com.struts2.actions.SeguradoService" method = "cadastrar">
+			<result name = "success" type = "chain">listarSegurados</result>
+			<result name = "error">/Welcome.jsp</result>
+		</action>
+		
+		<action name="listarSegurados" class= "com.struts2.actions.SeguradoService" method = "listarSegurados">
 			<result name = "success">/ListaDeSegurados.jsp</result>
 		</action>
+		
+		
+		
+		
 		
 		
 		
